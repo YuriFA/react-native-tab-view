@@ -157,7 +157,12 @@ export default class TabBar<T extends Route> extends React.Component<
     flattenedWidth: string | number | undefined
   ) => {
     if (flattenedWidth === 'auto') {
-      return tabWidths[routes[index].key] || 0;
+      // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+      if (routes && routes[index] && routes[index].key) {
+        return tabWidths[routes[index].key] || 0;
+      } else {
+        return 0;
+      }
     }
 
     switch (typeof flattenedWidth) {
